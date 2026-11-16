@@ -10,12 +10,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.List;
+import java.nio.file.Path;
 import java.util.Random;
 
 /**
@@ -43,9 +44,17 @@ public class BadIOGUI {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        // canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // 1.01
+        final JPanel center = new JPanel();
+        center.setLayout(new BoxLayout(center, BoxLayout.LINE_AXIS));
+        center.add(write, BorderLayout.CENTER);
+        canvas.add(center);
+        // 1.02
+        final JButton read = new JButton("Read from file");
+        center.add(read, BorderLayout.CENTER);
         /*
          * Handlers
          */
@@ -65,6 +74,21 @@ public class BadIOGUI {
                     } catch (final IOException e) {
                         JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
                         e.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                    }
+                }
+            }
+        );
+        // 1.02 && 1.03
+        read.addActionListener(
+            new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent ignored) {
+                    try (
+                        BufferedReader file = Files.newBufferedReader(Path.of(PATH))
+                    ) {
+                        IO.println(file.readAllLines());
+                    } catch (final IOException e) {
+                        JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -94,6 +118,8 @@ public class BadIOGUI {
          * OK, ready to push the frame onscreen
          */
         frame.setVisible(true);
+        // 1.01
+        frame.pack();
     }
 
     /**
