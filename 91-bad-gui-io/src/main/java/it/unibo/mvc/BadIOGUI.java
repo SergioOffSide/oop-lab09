@@ -114,12 +114,12 @@ public class BadIOGUI {
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
+        // 1.01
+        frame.pack();
         /*
          * OK, ready to push the frame onscreen
          */
         frame.setVisible(true);
-        // 1.01
-        frame.pack();
     }
 
     /**
