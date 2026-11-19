@@ -17,7 +17,7 @@ public final class SimpleController implements Controller {
      */
     public SimpleController() {
         /*
-         * Just for Java-doc
+         * Just for Javadoc
          */
     }
 
