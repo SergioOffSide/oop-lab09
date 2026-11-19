@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A very simple program using a graphical interface.
@@ -45,13 +46,23 @@ public final class SimpleGUIWithFileChooser {
         final JButton browse = new JButton("Browse...");
         upper.add(browse, BorderLayout.AFTER_LINE_ENDS);
         /*
-         * Creating new text area, disabling the editing and putting it in the center of upper's panel
+         * Creating new text field, disabling the editing and putting it in the center of upper's panel
+         */
+        final JTextField textField = new JTextField();
+        textField.setEditable(false);
+        final Controller controller = new Controller();
+        textField.setText(controller.getPath());
+        upper.add(textField, BorderLayout.CENTER);
+        /*
+         * Creating the text area
          */
         final JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        final Controller controller = new Controller();
-        textArea.setText(controller.getPath());
-        upper.add(textArea, BorderLayout.CENTER);
+        canvas.add(textArea, BorderLayout.CENTER);
+        /*
+         * Creating the save button
+         */
+        final JButton save = new JButton("Save");
+        canvas.add(save, BorderLayout.SOUTH);
         /*
          * Setting visibility in the frame
          */
@@ -68,7 +79,7 @@ public final class SimpleGUIWithFileChooser {
                     final int res = chooser.showSaveDialog(canvas);
                     if (res == JFileChooser.APPROVE_OPTION) {
                         controller.setDefaultFile(chooser.getSelectedFile().getPath());
-                        textArea.setText(controller.getPath());
+                        textField.setText(controller.getPath());
                     } else if (res == JFileChooser.ERROR_OPTION) {
                         JOptionPane.showMessageDialog(
                             canvas,
@@ -79,6 +90,14 @@ public final class SimpleGUIWithFileChooser {
                             JOptionPane.ERROR_MESSAGE
                         );
                     }
+                }
+            }
+        );
+        save.addActionListener(
+            new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent ignored) {
+                    controller.writeOnFile(textArea.getText());
                 }
             }
         );
