@@ -20,7 +20,7 @@ public class Controller {
     /**
      * Create or open an axisting file.
      * 
-     * @param path the file's path.
+     * @param path the file's path
      */
     public Controller(final String path) {
         file = new File(path);
@@ -37,7 +37,7 @@ public class Controller {
      * Set the new default file.
      * 
      * @param path the file's path.
-     * @throws NullPointerException if path is null.
+     * @throws NullPointerException if path is null
      */
     public void setDefaultFile(final String path) {
         Objects.requireNonNull(path);
@@ -47,7 +47,7 @@ public class Controller {
     /**
      * Return the file's name.
      * 
-     * @return file's name.
+     * @return file's name
      */
     public String getFile() {
         return file.getName();
@@ -56,7 +56,7 @@ public class Controller {
     /**
      * Return the file's path.
      * 
-     * @return the file's path.
+     * @return the file's path
      */
     public String getPath() {
         return file.getPath();
@@ -65,9 +65,9 @@ public class Controller {
     /**
      * Writes on defualt file.
      * 
-     * @param text the text that will be written in the file.
-     * @return true if the text is correctly written, false either.
-     * @throws NullPointerException if text is null.
+     * @param text the text that will be written in the file
+     * @return true if the text is correctly written, false either
+     * @throws NullPointerException if text is null
      */
     public boolean writeOnFile(final String text) {
         Objects.requireNonNull(text);
